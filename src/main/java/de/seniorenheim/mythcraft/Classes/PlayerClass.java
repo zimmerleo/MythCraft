@@ -1,7 +1,7 @@
 package de.seniorenheim.mythcraft.Classes;
 
-import de.seniorenheim.mythcraft.Resources.Resources;
-import de.seniorenheim.mythcraft.Utils.PlayerClassUtils;
+import de.seniorenheim.mythcraft.Utils.Resources.Resources;
+import de.seniorenheim.mythcraft.Utils.PlayerClasses.PlayerClassUtils;
 import org.bukkit.Material;
 
 public class PlayerClass {
@@ -12,13 +12,13 @@ public class PlayerClass {
     private int slot;
 
 
-    private int strength;
-    private int dexterity;
-    private int agility;
-    private int luck;
-    private int constitution;
-    private int resistance;
-    private int intelligence;
+    private int strength; //Damage +0.5% / pt; Penetration +0.25 % / pt; up to (up to 100pt)
+    private int dexterity; //DodgeChance +1.5% / pt; ResourceRegeneration +0.25 / pt; up to (60pt)
+    private int agility; //Speed buff?; MaxResourcePoints +5 / pt in case of Energy; up to (??pt)
+    private int luck; //CritChance +1.5% / pt LootChance +0.5% / pt; up to (60pt);
+    private int constitution; //MaxHitPoints +5% / pt; DamageReflection +0.5% / pt; up to (60pt)
+    private int resistance; //DamageReduction +2% / pt; MaxResourcePoints +5 / pt in case of Rage; up to (45pt)
+    private int intelligence; //CooldownReduction 2% / pt; MaxResourcePoints +5 / pt in case of Mana; up to (45pt)
 
     private double maxHitPoints;
     private double currentHitPoints;
@@ -169,8 +169,8 @@ public class PlayerClass {
         return maxXP;
     }
 
-    public void setMaxXP() {
-        this.maxXP = PlayerClassUtils.calculateMaxXP(level);
+    public void setMaxXP(double maxXP) {
+        this.maxXP = maxXP;
     }
 
     public double getCurrentXP() {

@@ -1,4 +1,4 @@
-package de.seniorenheim.mythcraft.Utils;
+package de.seniorenheim.mythcraft.Utils.IO;
 
 import de.seniorenheim.mythcraft.Classes.Assassin.Assassin;
 import de.seniorenheim.mythcraft.Classes.Hunter.Hunter;
@@ -16,11 +16,13 @@ import org.yaml.snakeyaml.nodes.Tag;
 import org.yaml.snakeyaml.representer.Representer;
 
 import java.io.*;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 public class IOUtils {
 
-    public static void saveYaml(HashMap<String, PlayerClass[]> playerMap) {
+    public static void saveYaml(HashMap<String, List<PlayerClass>> playerMap) {
         DumperOptions dumperOptions = new DumperOptions();
         dumperOptions.setIndent(2);
         dumperOptions.setPrettyFlow(true);
@@ -35,8 +37,8 @@ public class IOUtils {
         }
     }
 
-    public static HashMap<String, PlayerClass[]> readYaml() {
-        HashMap<String, PlayerClass[]> data = null;
+    public static HashMap<String, List<PlayerClass>> readYaml() {
+        HashMap<String, List<PlayerClass>> data = null;
 
         String filePath = "plugins/MythCraft/players.yml";
 
@@ -66,5 +68,23 @@ public class IOUtils {
         }
 
         return data;
+    }
+
+    public static PlayerClass[] convert(List<PlayerClass> list) {
+        PlayerClass[] result = new PlayerClass[10];
+        for (int i = 0; i < list.size(); i++) {
+            result[i] = list.get(i);
+        }
+
+        return result;
+    }
+
+    public static List<PlayerClass> convert(PlayerClass[] array) {
+        List<PlayerClass> result = new ArrayList<>();
+        for (int i = 0; i < array.length; i++) {
+            result.set(i, array[i]);
+        }
+
+        return result;
     }
 }

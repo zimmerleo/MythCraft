@@ -2,10 +2,10 @@ package de.seniorenheim.mythcraft.Listeners;
 
 import de.seniorenheim.mythcraft.Classes.Assassin.Assassin;
 import de.seniorenheim.mythcraft.Classes.PlayerClass;
-import de.seniorenheim.mythcraft.Inventories.ClassCreatingInventory;
+import de.seniorenheim.mythcraft.Utils.Inventories.ClassCreatingInventory;
 import de.seniorenheim.mythcraft.MythCraft;
-import de.seniorenheim.mythcraft.Utils.IOUtils;
-import de.seniorenheim.mythcraft.Utils.PlayerClassUtils;
+import de.seniorenheim.mythcraft.Utils.IO.IOUtils;
+import de.seniorenheim.mythcraft.Utils.PlayerClasses.PlayerClassUtils;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -13,6 +13,7 @@ import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.ItemStack;
 
 import java.util.HashMap;
+import java.util.List;
 
 public class InvClickListener implements Listener {
 
@@ -22,8 +23,8 @@ public class InvClickListener implements Listener {
     public void onInvClick(InventoryClickEvent e) {
         Player p = (Player) e.getWhoClicked();
         HashMap<String, PlayerClass> playingCharacters = MythCraft.getPlugin(MythCraft.class).getPlayingCharacters();
-        HashMap<String, PlayerClass[]> existingCharacters = (IOUtils.readYaml() != null ? IOUtils.readYaml() : new HashMap<>());
-        PlayerClass[] playerClasses = (existingCharacters.isEmpty() ? new PlayerClass[10] : existingCharacters.get(p.getName()));
+        HashMap<String, List<PlayerClass>> existingCharacters = (IOUtils.readYaml() != null ? IOUtils.readYaml() : new HashMap<>());
+        PlayerClass[] playerClasses = (existingCharacters.isEmpty() ? new PlayerClass[10] : IOUtils.convert(existingCharacters.get(p.getName())));
 
         switch (e.getView().getTitle()) {
             case "§6Your characters" -> {
@@ -39,15 +40,8 @@ public class InvClickListener implements Listener {
                             }
                             default -> {
                                 PlayerClass chosenClass = playerClasses[PlayerClassUtils.transformInvSlotToIndex(e.getSlot())];
-                                if (playingCharacters.containsKey(p.getName())) {
-                                    PlayerClass previousClass = playingCharacters.get(p.getName());
 
-                                    playerClasses[previousClass.getSlot()] = previousClass;
-
-                                    existingCharacters.put(p.getName(), playerClasses);
-                                    IOUtils.saveYaml(existingCharacters);
-                                }
-                                playingCharacters.put(p.getName(), chosenClass);
+                                setNewCharacter(p, playingCharacters, existingCharacters, playerClasses, chosenClass);
                             }
                         }
                     }
@@ -65,15 +59,7 @@ public class InvClickListener implements Listener {
                                 assassin.setSlot(PlayerClassUtils.transformInvSlotToIndex(slotSave));
                                 playerClasses[PlayerClassUtils.transformInvSlotToIndex(slotSave)] = assassin;
 
-                                if (playingCharacters.containsKey(p.getName())) {
-                                    PlayerClass previousClass = playingCharacters.get(p.getName());
-
-                                    playerClasses[previousClass.getSlot()] = previousClass;
-
-                                    existingCharacters.put(p.getName(), playerClasses);
-                                    IOUtils.saveYaml(existingCharacters);
-                                }
-                                playingCharacters.put(p.getName(), assassin);
+                                setNewCharacter(p, playingCharacters, existingCharacters, playerClasses, assassin);
                             }
                             default -> {}
                         }
@@ -82,5 +68,17 @@ public class InvClickListener implements Listener {
             }
             default -> {}
         }
+    }
+
+    private void setNewCharacter(Player p, HashMap<String, PlayerClass> playingCharacters, HashMap<String, List<PlayerClass>> existingCharacters, PlayerClass[] playerClasses, PlayerClass chosenClass) {
+        if (playingCharacters.containsKey(p.getName())) {
+            PlayerClass previousClass = playingCharacters.get(p.getName());
+
+            playerClasses[previousClass.getSlot()] = previousClass;
+
+            existingCharacters.put(p.getName(), IOUtils.convert(playerClasses));
+            IOUtils.saveYaml(existingCharacters);
+        }
+        playingCharacters.put(p.getName(), chosenClass);
     }
 }

@@ -1,7 +1,5 @@
-package de.seniorenheim.mythcraft.Utils;
+package de.seniorenheim.mythcraft.Utils.Resources;
 
-
-import de.seniorenheim.mythcraft.Resources.Resources;
 
 public class ResourceUtils {
 

@@ -1,6 +1,4 @@
-package de.seniorenheim.mythcraft.Utils;
-
-import de.seniorenheim.mythcraft.Elements.Elements;
+package de.seniorenheim.mythcraft.Utils.Elements;
 
 public class ElementUtils {
 
@@ -8,10 +6,10 @@ public class ElementUtils {
         return switch (e) {
             case FIRE -> new Elements[]{Elements.GRASS};
             case WATER -> new Elements[]{Elements.FIRE};
-            case GRASS -> new Elements[]{Elements.ELECTRIC};
-            case ELECTRIC -> new Elements[]{Elements.WATER};
+            case GRASS -> new Elements[]{Elements.THUNDER};
+            case THUNDER -> new Elements[]{Elements.WATER};
             case NECROTIC -> new Elements[]{Elements.GRASS, Elements.WATER};
-            case DARK -> new Elements[]{Elements.FIRE, Elements.ELECTRIC};
+            case DARK -> new Elements[]{Elements.FIRE, Elements.THUNDER};
             case DIVINE -> new Elements[]{Elements.DARK, Elements.NECROTIC};
         };
     }
@@ -19,9 +17,9 @@ public class ElementUtils {
     public static Elements[] getWeaknesses(Elements e) {
         return switch (e) {
             case FIRE -> new Elements[]{Elements.WATER, Elements.DARK};
-            case WATER -> new Elements[]{Elements.ELECTRIC, Elements.NECROTIC};
+            case WATER -> new Elements[]{Elements.THUNDER, Elements.NECROTIC};
             case GRASS -> new Elements[]{Elements.FIRE, Elements.NECROTIC};
-            case ELECTRIC -> new Elements[]{Elements.GRASS, Elements.DARK};
+            case THUNDER -> new Elements[]{Elements.GRASS, Elements.DARK};
             case NECROTIC, DARK -> new Elements[]{Elements.DIVINE};
             case DIVINE -> new Elements[]{};
         };
@@ -32,7 +30,7 @@ public class ElementUtils {
             case FIRE -> "§c";
             case WATER -> "§9";
             case GRASS -> "§a";
-            case ELECTRIC -> "§e";
+            case THUNDER -> "§e";
             case NECROTIC -> "§7";
             case DARK -> "§8";
             case DIVINE -> "§6";

@@ -1,6 +1,7 @@
 package de.seniorenheim.mythcraft;
 
 import de.seniorenheim.mythcraft.Classes.PlayerClass;
+import de.seniorenheim.mythcraft.Commands.ClassCommand;
 import de.seniorenheim.mythcraft.Listeners.InvClickListener;
 import de.seniorenheim.mythcraft.Listeners.JoinListener;
 import de.seniorenheim.mythcraft.Listeners.QuitListener;
@@ -29,6 +30,7 @@ public final class MythCraft extends JavaPlugin {
             e.printStackTrace();
         }
         loadListeners();
+        loadCommands();
 
     }
 
@@ -59,5 +61,9 @@ public final class MythCraft extends JavaPlugin {
         pm.registerEvents(new ResourcePackListener(), this);
         pm.registerEvents(new InvClickListener(), this);
         pm.registerEvents(new QuitListener(), this);
+    }
+
+    private void loadCommands() {
+        getCommand("class").setExecutor(new ClassCommand());
     }
 }

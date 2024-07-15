@@ -1,8 +1,8 @@
 package de.seniorenheim.mythcraft.Classes.Assassin;
 
 import de.seniorenheim.mythcraft.Classes.PlayerClass;
-import de.seniorenheim.mythcraft.Resources.Resources;
-import de.seniorenheim.mythcraft.Utils.PlayerClassUtils;
+import de.seniorenheim.mythcraft.Utils.Resources.Resources;
+import de.seniorenheim.mythcraft.Utils.PlayerClasses.PlayerClassUtils;
 import org.bukkit.Material;
 
 public class Assassin extends PlayerClass {
@@ -165,8 +165,8 @@ public class Assassin extends PlayerClass {
     }
 
     @Override
-    public void setMaxXP() {
-        super.setMaxXP();
+    public void setMaxXP(double maxXP) {
+        super.setMaxXP(maxXP);
     }
 
     @Override

@@ -1,11 +1,11 @@
-package de.seniorenheim.mythcraft.Inventories;
+package de.seniorenheim.mythcraft.Utils.Inventories;
 
 import de.seniorenheim.mythcraft.Classes.Assassin.Assassin;
 import de.seniorenheim.mythcraft.Classes.Hunter.Hunter;
 import de.seniorenheim.mythcraft.Classes.Magician.Magician;
 import de.seniorenheim.mythcraft.Classes.PlayerClass;
 import de.seniorenheim.mythcraft.Classes.Warrior.Warrior;
-import de.seniorenheim.mythcraft.Utils.ResourceUtils;
+import de.seniorenheim.mythcraft.Utils.Resources.ResourceUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;

@@ -1,8 +1,8 @@
 package de.seniorenheim.mythcraft.Classes.Hunter;
 
 import de.seniorenheim.mythcraft.Classes.PlayerClass;
-import de.seniorenheim.mythcraft.Resources.Resources;
-import de.seniorenheim.mythcraft.Utils.PlayerClassUtils;
+import de.seniorenheim.mythcraft.Utils.Resources.Resources;
+import de.seniorenheim.mythcraft.Utils.PlayerClasses.PlayerClassUtils;
 import org.bukkit.Material;
 
 public class Hunter extends PlayerClass {
