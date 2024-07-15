@@ -1,0 +1,4 @@
+name: MythCraft
+version: '${project.version}'
+main: de.seniorenheim.mythcraft.MythCraft
+api-version: '1.20'
