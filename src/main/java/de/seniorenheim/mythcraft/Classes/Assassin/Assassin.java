@@ -7,7 +7,7 @@ import org.bukkit.Material;
 
 public class Assassin extends PlayerClass {
     public Assassin() {
-        super("Assassin", Resources.ENERGY, Material.SHEARS, 0, 0, 0, 0, 0, 0, 0,0, 100, 100, 100, 100, 0, PlayerClassUtils.calculateMaxXP(0), 0);
+        super("Assassin", Resources.ENERGY, Material.SHEARS, 0, 0, 0, 0, 0, 0, 0,0, 100, 100, 100, 100, 1, PlayerClassUtils.calculateMaxXP(1), 0);
     }
 
     public Assassin(String className, Resources resource, Material material, int slot, int strength, int dexterity, int agility, int luck, int constitution, int resistance, int intelligence, double maxHitPoints, double currentHitPoints, double maxResourcePoints, double currentResourcePoints, int level, double maxXP, double currentXP) {

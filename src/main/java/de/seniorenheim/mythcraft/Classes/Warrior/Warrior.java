@@ -8,6 +8,6 @@ import org.bukkit.Material;
 public class Warrior extends PlayerClass {
 
     public Warrior() {
-        super("Warrior", Resources.RAGE, Material.IRON_SWORD,  0, 0, 0, 0, 0, 0, 0,0, 100, 100, 100, 100, 0, PlayerClassUtils.calculateMaxXP(0), 0);
+        super("Warrior", Resources.RAGE, Material.IRON_SWORD,  0, 0, 0, 0, 0, 0, 0,0, 100, 100, 100, 100, 1, PlayerClassUtils.calculateMaxXP(1), 0);
     }
 }

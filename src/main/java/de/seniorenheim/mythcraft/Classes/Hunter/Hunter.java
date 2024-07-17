@@ -7,6 +7,6 @@ import org.bukkit.Material;
 
 public class Hunter extends PlayerClass {
     public Hunter() {
-        super("Hunter", Resources.ENERGY, Material.BOW,  0, 0, 0, 0, 0, 0, 0,0, 100, 100, 100, 100, 0, PlayerClassUtils.calculateMaxXP(0), 0);
+        super("Hunter", Resources.ENERGY, Material.BOW,  0, 0, 0, 0, 0, 0, 0,0, 100, 100, 100, 100, 1, PlayerClassUtils.calculateMaxXP(1), 0);
     }
 }
