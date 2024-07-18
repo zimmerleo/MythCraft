@@ -28,6 +28,7 @@ public class JoinListener implements Listener {
         e.getPlayer().setResourcePack("https://cdn.modrinth.com/data/r4GILswZ/versions/FfTSsnUr/Faithful%2064x%20-%20Release%204.zip");
 
         e.getPlayer().getInventory().addItem(new CustomItem(new ItemStack(Material.SHEARS), "§4DEATH'S DAGGER", Rarity.LEGENDARY, Short.MAX_VALUE, (short) 69, new HashMap<>(), new HashMap<>(), new HashMap<>()).build());
+
         PlayerClassUtils.openClassChoosingInventory(e.getPlayer());
 
         KeyedBossBar bb1 = Bukkit.getBossBar(NamespacedKey.fromString(e.getPlayer().getName().toLowerCase() + "hp", MythCraft.getPlugin(MythCraft.class)));
