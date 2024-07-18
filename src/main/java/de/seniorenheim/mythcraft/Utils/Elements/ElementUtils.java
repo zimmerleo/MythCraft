@@ -4,6 +4,7 @@ public class ElementUtils {
 
     public static Elements[] getStrengths(Elements e) {
         return switch (e) {
+            case NORMAL -> new Elements[]{};
             case FIRE -> new Elements[]{Elements.GRASS};
             case WATER -> new Elements[]{Elements.FIRE};
             case GRASS -> new Elements[]{Elements.THUNDER};
@@ -16,17 +17,18 @@ public class ElementUtils {
 
     public static Elements[] getWeaknesses(Elements e) {
         return switch (e) {
+            case NORMAL, DIVINE -> new Elements[]{};
             case FIRE -> new Elements[]{Elements.WATER, Elements.DARK};
             case WATER -> new Elements[]{Elements.THUNDER, Elements.NECROTIC};
             case GRASS -> new Elements[]{Elements.FIRE, Elements.NECROTIC};
             case THUNDER -> new Elements[]{Elements.GRASS, Elements.DARK};
             case NECROTIC, DARK -> new Elements[]{Elements.DIVINE};
-            case DIVINE -> new Elements[]{};
         };
     }
 
     public static String getColor(Elements e) {
         return switch (e) {
+            case NORMAL -> "§f";
             case FIRE -> "§c";
             case WATER -> "§9";
             case GRASS -> "§a";

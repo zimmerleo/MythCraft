@@ -32,7 +32,6 @@ public class PlayerClassUtils {
             if (map.containsKey(player.getName())) {
 
                 try {
-                    //TODO ClassCastException
                     playerClasses = IOUtils.convert(map.get(player.getName()));
                 } catch (ClassCastException ex) {
                     ex.printStackTrace();

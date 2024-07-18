@@ -24,11 +24,11 @@ public class PlayerClass {
     private double currentHitPoints;
     private double maxResourcePoints;
     private double currentResourcePoints;
-    private int level;
+    private short level;
     private double maxXP;
     private double currentXP;
 
-    public PlayerClass(String className, Resources resource, Material material, int slot, int strength, int dexterity, int agility, int luck, int constitution, int resistance, int intelligence, double maxHitPoints, double currentHitPoints, double maxResourcePoints, double currentResourcePoints, int level, double maxXP, double currentXP) {
+    public PlayerClass(String className, Resources resource, Material material, int slot, int strength, int dexterity, int agility, int luck, int constitution, int resistance, int intelligence, double maxHitPoints, double currentHitPoints, double maxResourcePoints, double currentResourcePoints, short level, double maxXP, double currentXP) {
         this.className = className;
         this.resource = resource;
         this.material = material;
@@ -157,11 +157,11 @@ public class PlayerClass {
         this.currentResourcePoints = currentResourcePoints;
     }
 
-    public int getLevel() {
+    public short getLevel() {
         return level;
     }
 
-    public void setLevel(int level) {
+    public void setLevel(short level) {
         this.level = level;
     }
 
