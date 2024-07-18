@@ -3,6 +3,9 @@ package de.seniorenheim.mythcraft.Listeners;
 import de.seniorenheim.mythcraft.Classes.PlayerClass;
 import de.seniorenheim.mythcraft.MythCraft;
 import de.seniorenheim.mythcraft.Utils.IO.IOUtils;
+import org.bukkit.Bukkit;
+import org.bukkit.NamespacedKey;
+import org.bukkit.boss.KeyedBossBar;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -27,6 +30,15 @@ public class QuitListener implements Listener {
             map.put(p.getName(), IOUtils.convert(playerClasses));
 
             IOUtils.saveYaml(map);
+            MythCraft.getInstance().getPlayingCharacters().remove(p.getName());
+
+            KeyedBossBar bb1 = Bukkit.getBossBar(NamespacedKey.fromString(p.getName().toLowerCase() + "hp", MythCraft.getPlugin(MythCraft.class)));
+            KeyedBossBar bb2 = Bukkit.getBossBar(NamespacedKey.fromString(p.getName().toLowerCase() + "res", MythCraft.getPlugin(MythCraft.class)));
+
+            if (bb1 != null && bb2 != null) {
+                bb1.setVisible(false);
+                bb2.setVisible(false);
+            }
         }
     }
 }

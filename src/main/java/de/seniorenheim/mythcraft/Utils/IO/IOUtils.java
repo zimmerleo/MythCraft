@@ -17,6 +17,7 @@ import org.yaml.snakeyaml.representer.Representer;
 
 import java.io.*;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
@@ -80,11 +81,6 @@ public class IOUtils {
     }
 
     public static List<PlayerClass> convert(PlayerClass[] array) {
-        List<PlayerClass> result = new ArrayList<>();
-        for (int i = 0; i < array.length; i++) {
-            result.set(i, array[i]);
-        }
-
-        return result;
+        return new ArrayList<>(Arrays.asList(array));
     }
 }

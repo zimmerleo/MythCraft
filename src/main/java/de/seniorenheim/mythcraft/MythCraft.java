@@ -2,11 +2,10 @@ package de.seniorenheim.mythcraft;
 
 import de.seniorenheim.mythcraft.Classes.PlayerClass;
 import de.seniorenheim.mythcraft.Commands.ClassCommand;
-import de.seniorenheim.mythcraft.Listeners.InvClickListener;
-import de.seniorenheim.mythcraft.Listeners.JoinListener;
-import de.seniorenheim.mythcraft.Listeners.QuitListener;
-import de.seniorenheim.mythcraft.Listeners.ResourcePackListener;
+import de.seniorenheim.mythcraft.Listeners.*;
+import de.seniorenheim.mythcraft.Utils.PlayerClasses.PlayerClassUtils;
 import org.bukkit.Bukkit;
+import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.PluginManager;
@@ -14,24 +13,31 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
+
 public final class MythCraft extends JavaPlugin {
 
     private static MythCraft instance;
+    private ArrayList<Player> characterCreation = new ArrayList<>();
+    private ArrayList<Player> kickedByEvent = new ArrayList<>();
     private HashMap<String, PlayerClass>  playingCharacters = new HashMap<>();
 
     @Override
     public void onEnable() {
         instance = this;
         kickAll();
+
         try {
-            new YamlConfiguration().save(new File("plugins//MythCraft/players.yml"));
+            initializeFiles();
         } catch (IOException e) {
-            e.printStackTrace();
+            throw new RuntimeException(e);
         }
+
         loadListeners();
         loadCommands();
-
+        PlayerClassUtils.trackPlayers();
     }
 
     @Override
@@ -47,10 +53,18 @@ public final class MythCraft extends JavaPlugin {
         return playingCharacters;
     }
 
+    public ArrayList<Player> getKickedByEvent() {
+        return kickedByEvent;
+    }
+
+    public ArrayList<Player> getCharacterCreation() {
+        return characterCreation;
+    }
+
     private void kickAll() {
         if (!Bukkit.getOnlinePlayers().isEmpty()) {
             for (Player p : Bukkit.getOnlinePlayers()) {
-                p.kickPlayer("§cKicked due to a reload!");
+                p.kickPlayer("§4Kicked due to a reload!");
             }
         }
     }
@@ -61,9 +75,28 @@ public final class MythCraft extends JavaPlugin {
         pm.registerEvents(new ResourcePackListener(), this);
         pm.registerEvents(new InvClickListener(), this);
         pm.registerEvents(new QuitListener(), this);
+        pm.registerEvents(new InteractListener(), this);
+        pm.registerEvents(new InvCloseListener(), this);
     }
 
     private void loadCommands() {
         getCommand("class").setExecutor(new ClassCommand());
+    }
+
+    private void initializeFiles() throws IOException {
+        List<File> files = List.of(new File("plugins//MythCraft/players.yml"));
+
+        for (File file : files) {
+            if (!file.exists()) {
+                createFile(file);
+            }
+        }
+    }
+    private void createFile(File file) throws IOException {
+        file.createNewFile();
+        saveFile(file);
+    }
+    private void saveFile(File file) throws IOException {
+        new YamlConfiguration().save(file);
     }
 }

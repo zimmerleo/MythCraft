@@ -8,6 +8,6 @@ import org.bukkit.Material;
 public class Magician extends PlayerClass {
 
     public Magician() {
-        super("Magician", Resources.MANA, Material.STICK,  0, 0, 0, 0, 0, 0, 0,0, 100, 100, 100, 100, 0, PlayerClassUtils.calculateMaxXP(0), 0);
+        super("Magician", Resources.MANA, Material.STICK,  0, 0, 0, 0, 0, 0, 0,0, 100, 100, 100, 100, 1, PlayerClassUtils.calculateMaxXP(1), 0);
     }
 }

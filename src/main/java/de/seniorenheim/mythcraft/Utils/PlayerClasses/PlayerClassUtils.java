@@ -1,12 +1,18 @@
 package de.seniorenheim.mythcraft.Utils.PlayerClasses;
 
 import de.seniorenheim.mythcraft.Classes.PlayerClass;
+import de.seniorenheim.mythcraft.MythCraft;
 import de.seniorenheim.mythcraft.Utils.IO.IOUtils;
 import de.seniorenheim.mythcraft.Utils.Inventories.ClassChoosingInventory;
+import de.seniorenheim.mythcraft.Utils.Resources.Resources;
+import org.bukkit.Bukkit;
+import org.bukkit.NamespacedKey;
+import org.bukkit.boss.*;
 import org.bukkit.entity.Player;
+import org.bukkit.scoreboard.DisplaySlot;
+import org.bukkit.scoreboard.Scoreboard;
 
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 
 public class PlayerClassUtils {
 
@@ -39,5 +45,36 @@ public class PlayerClassUtils {
             }
         }
         player.openInventory(new ClassChoosingInventory().getInventory(playerClasses));
+    }
+
+    public static void trackPlayers() {
+        Bukkit.getScheduler().runTaskTimer(MythCraft.getPlugin(MythCraft.class), new Runnable() {
+            @Override
+            public void run() {
+                for (Player p : Bukkit.getOnlinePlayers()) {
+
+                    if (MythCraft.getInstance().getPlayingCharacters().containsKey(p.getName())) {
+                        PlayerClass pc = MythCraft.getInstance().getPlayingCharacters().get(p.getName());
+
+                        p.setLevel(pc.getLevel());
+                        p.setExp((float) (pc.getCurrentXP() / pc.getMaxXP()));
+
+                        KeyedBossBar bb1 = Bukkit.getBossBar(NamespacedKey.fromString(p.getName().toLowerCase() + "hp", MythCraft.getPlugin(MythCraft.class)));
+                        KeyedBossBar bb2 = Bukkit.getBossBar(NamespacedKey.fromString(p.getName().toLowerCase() + "res", MythCraft.getPlugin(MythCraft.class)));
+
+                        double d1 = pc.getCurrentHitPoints() / pc.getMaxHitPoints();
+                        bb1.setProgress(d1);
+                        bb1.setColor(d1 >= .5 ? BarColor.GREEN : d1 >= .25 ? BarColor.YELLOW : BarColor.RED);
+
+                        double d2 = pc.getCurrentResourcePoints() / pc.getMaxResourcePoints();
+                        bb2.setProgress(d2);
+                        bb2.setColor(pc.getResource() == Resources.ENERGY ? BarColor.YELLOW : pc.getResource() == Resources.MANA ? BarColor.BLUE : BarColor.RED);
+
+                        bb1.setVisible(true);
+                        bb2.setVisible(true);
+                    }
+                }
+            }
+        },0, 5);
     }
 }
