@@ -1,15 +1,17 @@
 package de.seniorenheim.mythcraft.Classes;
 
-import de.seniorenheim.mythcraft.Utils.Resources.Resources;
-import de.seniorenheim.mythcraft.Utils.PlayerClasses.PlayerClassUtils;
+import de.seniorenheim.mythcraft.Utils.Resources.Resource;
 import org.bukkit.Material;
+import org.bukkit.inventory.Inventory;
+import org.bukkit.inventory.PlayerInventory;
 
 public class PlayerClass {
 
     private final String className;
-    private final Resources resource;
+    private final Resource resource;
     private final Material material;
     private int slot;
+    private PlayerInventory inv;
 
 
     private int strength; //Damage +0.5% / pt; Penetration +0.25 % / pt; up to (up to 100pt)
@@ -28,7 +30,7 @@ public class PlayerClass {
     private double maxXP;
     private double currentXP;
 
-    public PlayerClass(String className, Resources resource, Material material, int slot, int strength, int dexterity, int agility, int luck, int constitution, int resistance, int intelligence, double maxHitPoints, double currentHitPoints, double maxResourcePoints, double currentResourcePoints, short level, double maxXP, double currentXP) {
+    public PlayerClass(String className, Resource resource, Material material, int slot, int strength, int dexterity, int agility, int luck, int constitution, int resistance, int intelligence, double maxHitPoints, double currentHitPoints, double maxResourcePoints, double currentResourcePoints, short level, double maxXP, double currentXP) {
         this.className = className;
         this.resource = resource;
         this.material = material;
@@ -53,7 +55,7 @@ public class PlayerClass {
         return className;
     }
 
-    public Resources getResource() {
+    public Resource getResource() {
         return resource;
     }
 
@@ -67,6 +69,14 @@ public class PlayerClass {
 
     public void setSlot(int slot) {
         this.slot = slot;
+    }
+
+    public PlayerInventory getInv() {
+        return inv;
+    }
+
+    public void setInv(PlayerInventory inv) {
+        this.inv = inv;
     }
 
     public int getStrength() {

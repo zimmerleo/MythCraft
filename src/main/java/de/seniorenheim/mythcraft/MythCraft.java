@@ -77,6 +77,7 @@ public final class MythCraft extends JavaPlugin {
         pm.registerEvents(new QuitListener(), this);
         pm.registerEvents(new InteractListener(), this);
         pm.registerEvents(new InvCloseListener(), this);
+        pm.registerEvents(new BowShootingListener(), this);
     }
 
     private void loadCommands() {

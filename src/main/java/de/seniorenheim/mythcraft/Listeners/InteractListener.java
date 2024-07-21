@@ -12,11 +12,9 @@ import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.EquipmentSlot;
 
-import java.util.Arrays;
 import java.util.HashMap;
 
 public class InteractListener implements Listener {
@@ -34,22 +32,36 @@ public class InteractListener implements Listener {
         for (int i = 0; i < actions.length; i++) {
             if (actions[i] == null) {
 
-                if (i == 0) {
-                    if (pc instanceof Assassin || pc instanceof Warrior) {
-                        switch (e.getAction()) {
-                            case RIGHT_CLICK_AIR, RIGHT_CLICK_BLOCK -> {
-                                actions[i] = e.getAction();
+                if (e.getItem() != null && e.getItem().getType() == pc.getMaterial()) {
+                    if (i == 0) {
+                        if (pc instanceof Assassin || pc instanceof Warrior) {
+                            switch (e.getAction()) {
+                                case RIGHT_CLICK_AIR, RIGHT_CLICK_BLOCK -> {
+                                    actions[i] = e.getAction();
+                                }
+                            }
+                        } else if (pc instanceof Magician) {
+                            switch (e.getAction()) {
+                                case LEFT_CLICK_AIR, LEFT_CLICK_BLOCK -> {
+                                    actions[i] = e.getAction();
+                                }
+                                case RIGHT_CLICK_AIR, RIGHT_CLICK_BLOCK -> {
+                                    InteractionUtils.magician_basicAttack(p);
+                                }
+                            }
+                        } else if (pc instanceof Hunter) {
+                            switch (e.getAction()) {
+                                case LEFT_CLICK_AIR, LEFT_CLICK_BLOCK -> {
+                                    actions[i] = e.getAction();
+                                }
+                                case RIGHT_CLICK_AIR, RIGHT_CLICK_BLOCK -> {
+                                    InteractionUtils.hunter_basicAttack(p);
+                                }
                             }
                         }
-                    } else if (pc instanceof Magician || pc instanceof Hunter) {
-                        switch (e.getAction()) {
-                            case LEFT_CLICK_AIR, LEFT_CLICK_BLOCK -> {
-                                actions[i] = e.getAction();
-                            }
-                        }
+                    } else {
+                        actions[i] = e.getAction();
                     }
-                } else {
-                    actions[i] = e.getAction();
                 }
 
                 if (actions[actions.length - 1] != null) {

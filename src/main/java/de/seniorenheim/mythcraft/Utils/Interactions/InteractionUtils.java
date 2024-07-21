@@ -5,6 +5,7 @@ import de.seniorenheim.mythcraft.MythCraft;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
+import org.bukkit.Particle;
 import org.bukkit.entity.*;
 import org.bukkit.event.block.Action;
 import org.bukkit.inventory.ItemStack;
@@ -114,5 +115,48 @@ public class InteractionUtils {
                 }
             }, 20L * 5 * level);
         }
+    }
+
+    public static void hunter_basicAttack(Player p) {
+        ItemStack bow = p.getInventory().getItemInMainHand();
+        if (bow.getType() == Material.BOW) {
+            Arrow arrow = p.launchProjectile(Arrow.class);
+            arrow.setVelocity(p.getLocation().getDirection().multiply(3));
+            arrow.setShooter(p);
+        }
+    }
+
+    public static void magician_basicAttack(Player p) {
+        Particle[] particles = {Particle.SPELL_WITCH, Particle.SPELL, Particle.WATER_BUBBLE, Particle.ELECTRIC_SPARK, Particle.DRAGON_BREATH, Particle.GLOW, Particle.WAX_OFF};
+        Location location = p.getEyeLocation();
+        Vector direction = location.getDirection().normalize();
+
+        new BukkitRunnable() {
+            int count = 0;
+            Location currentLocation = location.clone();
+
+            @Override
+            public void run() {
+                if (count > 20) {
+                    this.cancel();
+                    return;
+                }
+
+                count++;
+                currentLocation.add(direction);
+
+
+                Particle selected = particles[new Random().nextInt(particles.length)];
+                p.getWorld().spawnParticle(selected, currentLocation, 10, 0.1D, 0.1D, 0.1D, 0.01D);
+
+                for (Entity entity : currentLocation.getWorld().getNearbyEntities(currentLocation, 1D, 1D, 1D)) {
+                    if (entity instanceof LivingEntity && !entity.equals(p)) {
+                        //DMG
+                        this.cancel();
+                        return;
+                    }
+                }
+            }
+        }.runTaskTimer(MythCraft.getPlugin(MythCraft.class), 0, 1);
     }
 }

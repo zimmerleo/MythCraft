@@ -23,7 +23,7 @@ import java.util.List;
 
 public class IOUtils {
 
-    public static void saveYaml(HashMap<String, List<PlayerClass>> playerMap) {
+    public static void savePlayerClasses(HashMap<String, List<PlayerClass>> playerMap) {
         DumperOptions dumperOptions = new DumperOptions();
         dumperOptions.setIndent(2);
         dumperOptions.setPrettyFlow(true);
@@ -38,7 +38,7 @@ public class IOUtils {
         }
     }
 
-    public static HashMap<String, List<PlayerClass>> readYaml() {
+    public static HashMap<String, List<PlayerClass>> readPlayerClasses() {
         HashMap<String, List<PlayerClass>> data = null;
 
         String filePath = "plugins/MythCraft/players.yml";
@@ -83,4 +83,52 @@ public class IOUtils {
     public static List<PlayerClass> convert(PlayerClass[] array) {
         return new ArrayList<>(Arrays.asList(array));
     }
+
+    /*public static void save(HashMap<String, List<PlayerClass>> playerMap) {
+        DumperOptions dumperOptions = new DumperOptions();
+        dumperOptions.setIndent(2);
+        dumperOptions.setPrettyFlow(true);
+        dumperOptions.setDefaultFlowStyle(DumperOptions.FlowStyle.BLOCK);
+
+        Yaml yaml = new Yaml(dumperOptions);
+
+        try (FileWriter writer = new FileWriter("plugins/MythCraft/players.yml")) {
+            yaml.dump(playerMap, writer);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static HashMap<String, List<PlayerClass>> read() {
+        HashMap<String, List<PlayerClass>> data = null;
+
+        String filePath = "plugins/MythCraft/players.yml";
+
+        DumperOptions dumperOptions = new DumperOptions();
+        LoaderOptions loaderOptions = new LoaderOptions();
+        loaderOptions.setTagInspector(tag -> true);
+        Representer representer = new Representer(dumperOptions);
+        Constructor constructor = new CustomClassLoaderConstructor(MythCraft.class.getClassLoader(), loaderOptions);
+
+        Tag assassinTag = new Tag("!!de.seniorenheim.mythcraft.Classes.Assassin.Assassin");
+        Tag warriorTag = new Tag("!!de.seniorenheim.mythcraft.Classes.Warrior.Warrior");
+        Tag hunterTag = new Tag("!!de.seniorenheim.mythcraft.Classes.Hunter.Hunter");
+        Tag magicianTag = new Tag("!!de.seniorenheim.mythcraft.Classes.Magician.Magician");
+
+        constructor.addTypeDescription(new TypeDescription(Assassin.class, assassinTag));
+        constructor.addTypeDescription(new TypeDescription(Warrior.class, warriorTag));
+        constructor.addTypeDescription(new TypeDescription(Hunter.class, hunterTag));
+        constructor.addTypeDescription(new TypeDescription(Magician.class, magicianTag));
+
+        Yaml yaml = new Yaml(constructor, representer);
+
+        try (InputStream inputStream = new FileInputStream(filePath)) {
+            data = yaml.load(inputStream);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return data;
+    }*/
 }

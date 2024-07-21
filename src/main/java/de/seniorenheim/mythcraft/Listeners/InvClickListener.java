@@ -26,7 +26,7 @@ public class InvClickListener implements Listener {
     public void onInvClick(InventoryClickEvent e) {
         Player p = (Player) e.getWhoClicked();
         HashMap<String, PlayerClass> playingCharacters = MythCraft.getPlugin(MythCraft.class).getPlayingCharacters();
-        HashMap<String, List<PlayerClass>> existingCharacters = (IOUtils.readYaml() != null ? IOUtils.readYaml() : new HashMap<>());
+        HashMap<String, List<PlayerClass>> existingCharacters = (IOUtils.readPlayerClasses() != null ? IOUtils.readPlayerClasses() : new HashMap<>());
         PlayerClass[] playerClasses = (existingCharacters.isEmpty() ? new PlayerClass[10] : IOUtils.convert(existingCharacters.get(p.getName())));
 
         switch (e.getView().getTitle()) {
@@ -45,7 +45,6 @@ public class InvClickListener implements Listener {
                             }
                             default -> {
                                 PlayerClass chosenClass = playerClasses[PlayerClassUtils.transformInvSlotToIndex(e.getSlot())];
-
                                 setNewCharacter(p, playingCharacters, existingCharacters, playerClasses, chosenClass);
                             }
                         }
@@ -96,11 +95,16 @@ public class InvClickListener implements Listener {
     private void setNewCharacter(Player p, HashMap<String, PlayerClass> playingCharacters, HashMap<String, List<PlayerClass>> existingCharacters, PlayerClass[] playerClasses, PlayerClass chosenClass) {
         if (playingCharacters.containsKey(p.getName())) {
             PlayerClass previousClass = playingCharacters.get(p.getName());
+            previousClass.setInv(p.getInventory());
             playerClasses[previousClass.getSlot()] = previousClass;
         }
         existingCharacters.put(p.getName(), IOUtils.convert(playerClasses));
-        IOUtils.saveYaml(existingCharacters);
+        IOUtils.savePlayerClasses(existingCharacters);
         playingCharacters.put(p.getName(), chosenClass);
+        if (chosenClass.getInv() != null) {
+            p.getInventory().setContents(chosenClass.getInv().getContents());
+        }
+
         MythCraft.getInstance().getCharacterCreation().add(p);
         p.closeInventory();
         MythCraft.getInstance().getCharacterCreation().remove(p);

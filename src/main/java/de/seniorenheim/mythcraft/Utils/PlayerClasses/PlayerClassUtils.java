@@ -4,13 +4,11 @@ import de.seniorenheim.mythcraft.Classes.PlayerClass;
 import de.seniorenheim.mythcraft.MythCraft;
 import de.seniorenheim.mythcraft.Utils.IO.IOUtils;
 import de.seniorenheim.mythcraft.Utils.Inventories.ClassChoosingInventory;
-import de.seniorenheim.mythcraft.Utils.Resources.Resources;
+import de.seniorenheim.mythcraft.Utils.Resources.Resource;
 import org.bukkit.Bukkit;
 import org.bukkit.NamespacedKey;
 import org.bukkit.boss.*;
 import org.bukkit.entity.Player;
-import org.bukkit.scoreboard.DisplaySlot;
-import org.bukkit.scoreboard.Scoreboard;
 
 import java.util.*;
 
@@ -32,7 +30,7 @@ public class PlayerClassUtils {
     }
 
     public static void openClassChoosingInventory(Player player) {
-        HashMap<String, List<PlayerClass>> map = IOUtils.readYaml();
+        HashMap<String, List<PlayerClass>> map = IOUtils.readPlayerClasses();
         PlayerClass[] playerClasses = new PlayerClass[10];
         if (map != null) {
             if (map.containsKey(player.getName())) {
@@ -52,6 +50,8 @@ public class PlayerClassUtils {
             @Override
             public void run() {
                 for (Player p : Bukkit.getOnlinePlayers()) {
+                    KeyedBossBar bb1 = Bukkit.getBossBar(NamespacedKey.fromString(p.getName().toLowerCase() + "hp", MythCraft.getPlugin(MythCraft.class)));
+                    KeyedBossBar bb2 = Bukkit.getBossBar(NamespacedKey.fromString(p.getName().toLowerCase() + "res", MythCraft.getPlugin(MythCraft.class)));
 
                     if (MythCraft.getInstance().getPlayingCharacters().containsKey(p.getName())) {
                         PlayerClass pc = MythCraft.getInstance().getPlayingCharacters().get(p.getName());
@@ -59,19 +59,19 @@ public class PlayerClassUtils {
                         p.setLevel(pc.getLevel());
                         p.setExp((float) (pc.getCurrentXP() / pc.getMaxXP()));
 
-                        KeyedBossBar bb1 = Bukkit.getBossBar(NamespacedKey.fromString(p.getName().toLowerCase() + "hp", MythCraft.getPlugin(MythCraft.class)));
-                        KeyedBossBar bb2 = Bukkit.getBossBar(NamespacedKey.fromString(p.getName().toLowerCase() + "res", MythCraft.getPlugin(MythCraft.class)));
-
                         double d1 = pc.getCurrentHitPoints() / pc.getMaxHitPoints();
                         bb1.setProgress(d1);
                         bb1.setColor(d1 >= .5 ? BarColor.GREEN : d1 >= .25 ? BarColor.YELLOW : BarColor.RED);
 
                         double d2 = pc.getCurrentResourcePoints() / pc.getMaxResourcePoints();
                         bb2.setProgress(d2);
-                        bb2.setColor(pc.getResource() == Resources.ENERGY ? BarColor.YELLOW : pc.getResource() == Resources.MANA ? BarColor.BLUE : BarColor.RED);
+                        bb2.setColor(pc.getResource() == Resource.ENERGY ? BarColor.YELLOW : pc.getResource() == Resource.MANA ? BarColor.BLUE : BarColor.RED);
 
                         bb1.setVisible(true);
                         bb2.setVisible(true);
+                    } else {
+                        bb1.setVisible(false);
+                        bb2.setVisible(false);
                     }
                 }
             }
