@@ -2,8 +2,11 @@ package de.seniorenheim.mythcraft;
 
 import de.seniorenheim.mythcraft.Classes.PlayerClass;
 import de.seniorenheim.mythcraft.Commands.ClassCommand;
+import de.seniorenheim.mythcraft.Commands.NPCCommand;
 import de.seniorenheim.mythcraft.Listeners.*;
 import de.seniorenheim.mythcraft.Utils.PlayerClasses.PlayerClassUtils;
+import de.seniorenheim.mythcraft.Utils.Trackers.NPCTracker;
+import de.seniorenheim.mythcraft.Utils.Trackers.PlayerTracker;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -37,12 +40,7 @@ public final class MythCraft extends JavaPlugin {
 
         loadListeners();
         loadCommands();
-        PlayerClassUtils.trackPlayers();
-    }
-
-    @Override
-    public void onDisable() {
-
+        enableTrackings();
     }
 
     public static MythCraft getInstance() {
@@ -78,10 +76,17 @@ public final class MythCraft extends JavaPlugin {
         pm.registerEvents(new InteractListener(), this);
         pm.registerEvents(new InvCloseListener(), this);
         pm.registerEvents(new BowShootingListener(), this);
+        pm.registerEvents(new ChatListener(), this);
     }
 
     private void loadCommands() {
         getCommand("class").setExecutor(new ClassCommand());
+        getCommand("npc").setExecutor(new NPCCommand());
+    }
+
+    private void enableTrackings() {
+        new PlayerTracker();
+        new NPCTracker();
     }
 
     private void initializeFiles() throws IOException {
