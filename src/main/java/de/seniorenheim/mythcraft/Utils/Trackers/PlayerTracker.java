@@ -12,10 +12,11 @@ import org.bukkit.entity.Player;
 public class PlayerTracker {
 
     public PlayerTracker() {
-        trackPlayers();
+        trackPlayerStats();
+        trackPlayerQuests();
     }
 
-    private void trackPlayers() {
+    private void trackPlayerStats() {
         Bukkit.getScheduler().runTaskTimer(MythCraft.getPlugin(MythCraft.class), new Runnable() {
             @Override
             public void run() {
@@ -46,5 +47,14 @@ public class PlayerTracker {
                 }
             }
         },0, 5);
+    }
+
+    private void trackPlayerQuests() {
+        Bukkit.getScheduler().runTaskTimer(MythCraft.getPlugin(MythCraft.class), new Runnable() {
+            @Override
+            public void run() {
+                //TODO
+            }
+        }, 0, 1);
     }
 }

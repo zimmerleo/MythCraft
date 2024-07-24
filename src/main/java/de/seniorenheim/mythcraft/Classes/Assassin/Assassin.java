@@ -2,7 +2,7 @@ package de.seniorenheim.mythcraft.Classes.Assassin;
 
 import de.seniorenheim.mythcraft.Classes.PlayerClass;
 import de.seniorenheim.mythcraft.Utils.Resources.Resource;
-import de.seniorenheim.mythcraft.Utils.PlayerClasses.PlayerClassUtils;
+import de.seniorenheim.mythcraft.Classes.PlayerClassUtils;
 import org.bukkit.Material;
 
 public class Assassin extends PlayerClass {

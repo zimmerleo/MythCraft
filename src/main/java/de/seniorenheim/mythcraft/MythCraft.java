@@ -4,11 +4,9 @@ import de.seniorenheim.mythcraft.Classes.PlayerClass;
 import de.seniorenheim.mythcraft.Commands.ClassCommand;
 import de.seniorenheim.mythcraft.Commands.NPCCommand;
 import de.seniorenheim.mythcraft.Listeners.*;
-import de.seniorenheim.mythcraft.Utils.PlayerClasses.PlayerClassUtils;
 import de.seniorenheim.mythcraft.Utils.Trackers.NPCTracker;
 import de.seniorenheim.mythcraft.Utils.Trackers.PlayerTracker;
 import org.bukkit.Bukkit;
-import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.PluginManager;
@@ -23,9 +21,9 @@ import java.util.List;
 public final class MythCraft extends JavaPlugin {
 
     private static MythCraft instance;
-    private ArrayList<Player> characterCreation = new ArrayList<>();
-    private ArrayList<Player> kickedByEvent = new ArrayList<>();
-    private HashMap<String, PlayerClass>  playingCharacters = new HashMap<>();
+    private final ArrayList<Player> characterCreation = new ArrayList<>();
+    private final ArrayList<Player> kickedByEvent = new ArrayList<>();
+    private final HashMap<String, PlayerClass>  playingCharacters = new HashMap<>();
 
     @Override
     public void onEnable() {

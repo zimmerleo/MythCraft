@@ -8,7 +8,7 @@ import de.seniorenheim.mythcraft.Classes.Warrior.Warrior;
 import de.seniorenheim.mythcraft.Utils.Inventories.ClassCreatingInventory;
 import de.seniorenheim.mythcraft.MythCraft;
 import de.seniorenheim.mythcraft.Utils.IO.IOUtils;
-import de.seniorenheim.mythcraft.Utils.PlayerClasses.PlayerClassUtils;
+import de.seniorenheim.mythcraft.Classes.PlayerClassUtils;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;

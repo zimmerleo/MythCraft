@@ -7,7 +7,7 @@ import de.seniorenheim.mythcraft.Utils.Rarities.Rarity;
 import de.seniorenheim.mythcraft.Utils.Resources.Resource;
 import org.bukkit.Material;
 import de.seniorenheim.mythcraft.MythCraft;
-import de.seniorenheim.mythcraft.Utils.PlayerClasses.PlayerClassUtils;
+import de.seniorenheim.mythcraft.Classes.PlayerClassUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.NamespacedKey;

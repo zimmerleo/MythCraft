@@ -1,6 +1,5 @@
-package de.seniorenheim.mythcraft.Utils.PlayerClasses;
+package de.seniorenheim.mythcraft.Classes;
 
-import de.seniorenheim.mythcraft.Classes.PlayerClass;
 import de.seniorenheim.mythcraft.Utils.IO.IOUtils;
 import de.seniorenheim.mythcraft.Utils.Inventories.ClassChoosingInventory;
 import org.bukkit.entity.Player;

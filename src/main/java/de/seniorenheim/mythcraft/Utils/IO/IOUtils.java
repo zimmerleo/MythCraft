@@ -6,6 +6,7 @@ import de.seniorenheim.mythcraft.Classes.Magician.Magician;
 import de.seniorenheim.mythcraft.Classes.PlayerClass;
 import de.seniorenheim.mythcraft.Classes.Warrior.Warrior;
 import de.seniorenheim.mythcraft.MythCraft;
+import de.seniorenheim.mythcraft.Quests.AbstractQuest;
 import net.minecraft.server.level.ServerPlayer;
 import org.yaml.snakeyaml.DumperOptions;
 import org.yaml.snakeyaml.LoaderOptions;
@@ -124,5 +125,49 @@ public class IOUtils {
         }
 
         return data.get("npcs") != null ? data.get("npcs") : new ArrayList<>();
+    }
+
+    public static void saveQuests(List<AbstractQuest> questList) {
+        HashMap<String, List<AbstractQuest>> data = new HashMap<>();
+        data.put("quests", questList);
+
+        DumperOptions dumperOptions = new DumperOptions();
+        dumperOptions.setIndent(2);
+        dumperOptions.setPrettyFlow(true);
+        dumperOptions.setDefaultFlowStyle(DumperOptions.FlowStyle.BLOCK);
+
+        Yaml yaml = new Yaml(dumperOptions);
+
+        try (FileWriter writer = new FileWriter("plugins/MythCraft/quests.yml")) {
+            yaml.dump(data, writer);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static List<AbstractQuest> readQuests() {
+        HashMap<String, List<AbstractQuest>> data = null;
+
+        String filePath = "plugins/MythCraft/quests.yml";
+
+        DumperOptions dumperOptions = new DumperOptions();
+        LoaderOptions loaderOptions = new LoaderOptions();
+        loaderOptions.setTagInspector(tag -> true);
+        Representer representer = new Representer(dumperOptions);
+        Constructor constructor = new CustomClassLoaderConstructor(MythCraft.class.getClassLoader(), loaderOptions);
+
+        //Tag npcTag = new Tag("");
+        //constructor.addTypeDescription(new TypeDescription(Assassin.class, assassinTag));
+
+        Yaml yaml = new Yaml(constructor, representer);
+
+        try (InputStream inputStream = new FileInputStream(filePath)) {
+            data = yaml.load(inputStream);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return data.get("quests") != null ? data.get("quests") : new ArrayList<>();
     }
 }

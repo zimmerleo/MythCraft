@@ -1,9 +1,11 @@
 package de.seniorenheim.mythcraft.Classes;
 
+import de.seniorenheim.mythcraft.Quests.AbstractQuest;
 import de.seniorenheim.mythcraft.Utils.Resources.Resource;
 import org.bukkit.Material;
-import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.PlayerInventory;
+
+import java.util.List;
 
 public class PlayerClass {
 
@@ -11,6 +13,7 @@ public class PlayerClass {
     private final Resource resource;
     private final Material material;
     private int slot;
+    //TODO
     private PlayerInventory inv;
 
 
@@ -30,25 +33,30 @@ public class PlayerClass {
     private double maxXP;
     private double currentXP;
 
-    public PlayerClass(String className, Resource resource, Material material, int slot, int strength, int dexterity, int agility, int luck, int constitution, int resistance, int intelligence, double maxHitPoints, double currentHitPoints, double maxResourcePoints, double currentResourcePoints, short level, double maxXP, double currentXP) {
-        this.className = className;
-        this.resource = resource;
-        this.material = material;
-        this.slot = slot;
-        this.strength = strength;
-        this.dexterity = dexterity;
-        this.agility = agility;
-        this.luck = luck;
-        this.constitution = constitution;
-        this.resistance = resistance;
-        this.intelligence = intelligence;
-        this.maxHitPoints = maxHitPoints;
-        this.currentHitPoints = currentHitPoints;
-        this.maxResourcePoints = maxResourcePoints;
-        this.currentResourcePoints = currentResourcePoints;
-        this.level = level;
-        this.maxXP = maxXP;
+    //TODO
+    //private final List<AbstractQuest> quests;
+
+    public PlayerClass(List<AbstractQuest> quests, double currentXP, double maxXP, short level, double currentResourcePoints, double maxResourcePoints, double currentHitPoints, double maxHitPoints, int intelligence, int resistance, int constitution, int luck, int agility, int dexterity, int strength, PlayerInventory inv, int slot, Material material, Resource resource, String className) {
+        //this.quests = quests;
         this.currentXP = currentXP;
+        this.maxXP = maxXP;
+        this.level = level;
+        this.currentResourcePoints = currentResourcePoints;
+        this.maxResourcePoints = maxResourcePoints;
+        this.currentHitPoints = currentHitPoints;
+        this.maxHitPoints = maxHitPoints;
+        this.intelligence = intelligence;
+        this.resistance = resistance;
+        this.constitution = constitution;
+        this.luck = luck;
+        this.agility = agility;
+        this.dexterity = dexterity;
+        this.strength = strength;
+        this.inv = inv;
+        this.slot = slot;
+        this.material = material;
+        this.resource = resource;
+        this.className = className;
     }
 
     public String getClassName() {
@@ -190,4 +198,8 @@ public class PlayerClass {
     public void setCurrentXP(double currentXP) {
         this.currentXP = currentXP;
     }
+
+    /*public List<AbstractQuest> getQuests() {
+        return quests;
+    }*/
 }

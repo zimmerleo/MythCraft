@@ -1,6 +1,6 @@
 package de.seniorenheim.mythcraft.Commands;
 
-import de.seniorenheim.mythcraft.Utils.PlayerClasses.PlayerClassUtils;
+import de.seniorenheim.mythcraft.Classes.PlayerClassUtils;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
